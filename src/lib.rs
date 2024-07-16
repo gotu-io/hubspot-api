@@ -7,7 +7,7 @@ use objects::ObjectsManager;
 
 mod api_configs;
 mod builder;
-mod client;
+pub mod client;
 mod engagements;
 mod objects;
 mod owners;
