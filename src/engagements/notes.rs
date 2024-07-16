@@ -13,6 +13,7 @@ pub struct NoteProperties {
 }
 
 impl NoteProperties {
+    #[must_use]
     pub fn new(body: String) -> Self {
         Self {
             body,

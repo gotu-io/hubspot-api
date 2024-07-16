@@ -24,7 +24,7 @@ impl ToPath for EngagementType {
 /// For example, if you call a prospect, you can log a call to the contact record,
 /// and also associate the call with their associated company.
 /// Possible activities include notes, tasks, meetings, emails, calls, postal mail,
-/// SMS, LinkedIn messages, and WhatsApp messaged.
+/// SMS, `LinkedIn` messages, an`WhatsApp`pp messaged.
 #[derive(Clone, Debug)]
 pub struct EngagementsManager {
     /// Notes add information to the record timeline.

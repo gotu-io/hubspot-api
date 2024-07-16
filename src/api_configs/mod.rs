@@ -1,15 +1,13 @@
 mod associations;
 mod batch;
-pub mod query;
+pub(crate) mod query;
 pub mod types;
 
 use std::sync::Arc;
 
 pub use associations::{AssociationCreationDetails, AssociationTypes};
 
-pub use types::{
-    AssociationLinks, AssociationType, CreateAssociation, HubspotRecord, OptionNotDesired,
-};
+pub(crate) use types::{CreateAssociation, HubspotRecord, OptionNotDesired};
 
 use crate::client::HubspotClient;
 
@@ -69,7 +67,7 @@ where
     /// Properties:  A struct of the properties to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
-    /// PropertiesWithHistory:  A struct of the properties with history to be returned in the response.
+    /// `PropertiesWithHistory`:  A struct of the properties with history to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
     /// Associations: A struct of the associations to be returned in the response.
@@ -113,7 +111,7 @@ where
     /// Properties:  A struct of the properties to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
-    /// PropertiesWithHistory:  A struct of the properties with history to be returned in the response.
+    /// `PropertiesWithHistory`:  A struct of the properties with history to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
     /// Associations: A struct of the associations to be returned in the response.
@@ -143,7 +141,7 @@ where
     /// Properties:  A struct of the properties to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
-    /// PropertiesWithHistory:  A struct of the properties with history to be returned in the response.
+    /// `PropertiesWithHistory`:  A struct of the properties with history to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     ///
     /// Associations: A struct of the associations to be returned in the response.
@@ -184,7 +182,7 @@ where
     /// Properties:  A struct of the properties to be updated and returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not be updated or appear in the response.
     ///
-    /// PropertiesWithHistory:  A struct of the properties with history to be returned in the response.
+    /// `PropertiesWithHistory`:  A struct of the properties with history to be returned in the response.
     ///     If the requested object doesn't have a value for a property, it will not appear in the response.
     pub async fn update<Properties, PropertiesWithHistory>(
         &self,

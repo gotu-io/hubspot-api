@@ -8,7 +8,7 @@ use crate::Hubspot;
 use super::client::HubspotClient;
 
 /// Hubspot api  interface.
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct HubspotBuilder {
     client: Option<Client>,
     domain: Option<String>,
@@ -17,9 +17,9 @@ pub struct HubspotBuilder {
 }
 
 impl HubspotBuilder {
-    /// Create an instance of the HubSpot API builder.
+    /// Create an instance of the `HubSpot` API builder.
     pub fn new() -> Self {
-        Default::default()
+        HubspotBuilder::default()
     }
 
     /// Build the Hubspot API Library.
@@ -77,11 +77,11 @@ impl HubspotBuilder {
 #[allow(clippy::enum_variant_names)]
 #[derive(Debug, PartialOrd, PartialEq)]
 pub enum HubspotBuilderError {
-    /// Indicates builder didn't set [HubspotBuilder::domain].
+    /// Indicates builder didn't set [`HubspotBuilder::domain`].
     MissingDomain,
-    /// Indicates builder didn't set [HubspotBuilder::token].
+    /// Indicates builder didn't set [`HubspotBuilder::token`].
     MissingToken,
-    /// Indicates builder didn't set [HubspotBuilder::portal_id].
+    /// Indicates builder didn't set [`HubspotBuilder::portal_id`].
     MissingPortalId,
 }
 

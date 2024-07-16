@@ -17,7 +17,8 @@ pub struct HubspotClient {
 }
 
 impl HubspotClient {
-    /// Create HubspotClient
+    /// Create `HubspotClient`
+    #[must_use]
     pub fn new(client: Client, domain: &str, token: &str, portal_id: &str) -> Self {
         Self {
             client,

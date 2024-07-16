@@ -1,3 +1,21 @@
+#![deny(
+    unreachable_pub,
+    missing_debug_implementations,
+    rustdoc::broken_intra_doc_links,
+    clippy::all,
+    clippy::perf,
+    clippy::pedantic,
+    clippy::fn_to_numeric_cast_any
+)]
+#![allow(
+    clippy::missing_errors_doc,
+    clippy::needless_pass_by_value,
+    clippy::match_same_arms,
+    clippy::module_name_repetitions,
+    clippy::missing_panics_doc,
+    clippy::similar_names
+)]
+
 use std::sync::Arc;
 
 use builder::HubspotBuilder;
@@ -36,6 +54,7 @@ pub struct Hubspot {
 
 impl Hubspot {
     /// Create hubspot api
+    #[must_use]
     pub fn new(client: HubspotClient) -> Self {
         let portal_id = client.portal_id.clone();
         let client = Arc::new(client);
@@ -49,6 +68,7 @@ impl Hubspot {
     }
 
     /// Create Hubspot client
+    #[must_use]
     pub fn builder() -> HubspotBuilder {
         HubspotBuilder::new()
     }
