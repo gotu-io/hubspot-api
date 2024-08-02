@@ -13,6 +13,7 @@ pub enum ObjectType {
     Deals,
     LineItems,
     Tickets,
+    Notes,
 }
 
 // TODO see if we can use strum
@@ -43,6 +44,8 @@ pub struct ObjectsManager {
     pub line_items: ApiCollection<ObjectType>,
     /// Tickets contain information associatied with deals
     pub tickets: ApiCollection<ObjectType>,
+    /// Notes are notes for other objects
+    pub notes: ApiCollection<ObjectType>,
 }
 
 impl ObjectsManager {
@@ -53,6 +56,7 @@ impl ObjectsManager {
             deals: ApiCollection::new(ObjectType::Deals, Arc::clone(&client)),
             line_items: ApiCollection::new(ObjectType::LineItems, Arc::clone(&client)),
             tickets: ApiCollection::new(ObjectType::Tickets, Arc::clone(&client)),
+            notes: ApiCollection::new(ObjectType::Notes, Arc::clone(&client)),
         }
     }
 
@@ -64,6 +68,7 @@ impl ObjectsManager {
             ObjectType::Deals => &self.deals,
             ObjectType::LineItems => &self.line_items,
             ObjectType::Tickets => &self.tickets,
+            ObjectType::Notes => &self.notes,
         }
     }
 }
