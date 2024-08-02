@@ -1,5 +1,5 @@
 /// Check if query has begun.
-pub fn query_begun_check(checkpoint: bool) -> (String, bool) {
+fn query_begun_check(checkpoint: bool) -> (String, bool) {
     if checkpoint {
         ("&".to_string(), checkpoint)
     } else {
@@ -8,13 +8,13 @@ pub fn query_begun_check(checkpoint: bool) -> (String, bool) {
 }
 
 /// Build the query for hubspot paging.
-pub fn build_paging_query(limit: Option<i32>, after: Option<&str>) -> (String, bool) {
+pub(crate) fn build_paging_query(limit: Option<i32>, after: Option<&str>) -> (String, bool) {
     let mut query_begun = false;
 
     let limit_query = match limit {
         Some(limit) => {
             query_begun = true;
-            format!("?limit={}", limit)
+            format!("?limit={limit}")
         }
         None => String::new(),
     };
@@ -28,11 +28,11 @@ pub fn build_paging_query(limit: Option<i32>, after: Option<&str>) -> (String, b
         None => String::new(),
     };
 
-    (format!("{}{}", limit_query, after_query), query_begun)
+    (format!("{limit_query}{after_query}"), query_begun)
 }
 
-/// Build a query string from properties, properties_with_history, associations, and archived
-pub fn build_query_string(
+/// Build a query string from properties, `properties_with_history`, associations, and archived
+pub(crate) fn build_query_string(
     query_already_begun: bool,
     properties: &[&str],
     properties_with_history: &[&str],
@@ -67,9 +67,9 @@ pub fn build_query_string(
         format!("{}associations={}", query_check.0, associations.join(","))
     };
     let archived_query = if query_begun {
-        format!("&archived={}", archived)
+        format!("&archived={archived}")
     } else {
-        format!("?archived={}", archived)
+        format!("?archived={archived}")
     };
 
     format!("{property_query}{properties_with_history_query}{associations_query}{archived_query}")

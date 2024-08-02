@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 use crate::client::HubspotClient;
 
-/// ToPath trait represents a Hubspot object's path.
+/// `ToPath` trait represents a Hubspot object's path.
 pub trait ToPath {
     /// Returns the object's path for the api routes.
     fn to_path(&self) -> String;
@@ -53,9 +53,9 @@ pub struct HubspotRecord<Properties, PropertiesWithHistory, Associations> {
     pub archived_at: Option<String>,
 }
 
-/// Implementation of HubspotRecord where only Properties are required.
+/// Implementation of `HubspotRecord` where only Properties are required.
 impl<Properties> HubspotRecord<Properties, OptionNotDesired, OptionNotDesired> {
-    /// Create a new HubspotRecord with the given properties and default values for all other fields.
+    /// Create a new `HubspotRecord` with the given properties and default values for all other fields.
     /// Suggested use for the Core Update endpoint.
     pub fn with_properties(
         properties: Properties,
@@ -73,10 +73,10 @@ impl<Properties> HubspotRecord<Properties, OptionNotDesired, OptionNotDesired> {
     }
 }
 
-/// Implementation of HubspotRecord where Properties and AssociationsToCreate are required.
+/// Implementation of `HubspotRecord` where Properties and `AssociationsToCreate` are required.
 /// Recommended use for the base create endpoint.
 impl<Properties> HubspotRecord<Properties, OptionNotDesired, Vec<CreateAssociation>> {
-    /// Create a new HubspotRecord with the given properties. Initializes a vec for associations to create. Default values for all other fields.
+    /// Create a new `HubspotRecord` with the given properties. Initializes a vec for associations to create. Default values for all other fields.
     /// Suggested use for the Core New endpoint.
     pub fn with_properties_and_associations(
         properties: Properties,
@@ -94,6 +94,7 @@ impl<Properties> HubspotRecord<Properties, OptionNotDesired, Vec<CreateAssociati
     }
 
     /// Attach multiple associations of the same known built in associations
+    #[must_use]
     pub fn attach_built_in_associations(
         mut self,
         association_type: AssociationLinks,
@@ -101,12 +102,13 @@ impl<Properties> HubspotRecord<Properties, OptionNotDesired, Vec<CreateAssociati
     ) -> Self {
         for id in ids {
             self.associations
-                .push(CreateAssociation::new_built_in(id, &association_type))
+                .push(CreateAssociation::new_built_in(id, &association_type));
         }
         self
     }
 
     /// Attach multiple associations of the same custom association type
+    #[must_use]
     pub fn attach_associations(
         mut self,
         association_type: AssociationType,
@@ -114,7 +116,7 @@ impl<Properties> HubspotRecord<Properties, OptionNotDesired, Vec<CreateAssociati
     ) -> Self {
         for id in ids {
             self.associations
-                .push(CreateAssociation::new(id, &association_type))
+                .push(CreateAssociation::new(id, &association_type));
         }
         self
     }
@@ -190,15 +192,17 @@ pub struct PagingNext {
 
 /// An enum of Built In Hubspot Associations.
 /// To be built upon in the future.
+#[derive(Debug)]
 pub enum AssociationLinks {
     NoteToContact,
     NoteToCompany,
     NoteToDeal,
 }
 
-/// Implementation of CreateAssociation
+/// Implementation of `CreateAssociation`
 impl CreateAssociation {
-    /// Create a new association using the AssociationLinks
+    /// Create a new association using the `AssociationLinks`
+    #[must_use]
     pub fn new_built_in(id: String, association_type: &AssociationLinks) -> Self {
         Self {
             to: AssociationTo { id },
@@ -206,6 +210,7 @@ impl CreateAssociation {
         }
     }
 
+    #[must_use]
     pub fn new(id: String, association_type: &AssociationType) -> Self {
         Self {
             to: AssociationTo { id },
@@ -214,9 +219,10 @@ impl CreateAssociation {
     }
 }
 
-/// Implementation of AssociationLinks
+/// Implementation of `AssociationLinks`
 impl AssociationLinks {
-    /// Build a new AssociationType from the given AssociationLinks
+    /// Build a new `AssociationType` from the give`AssociationLinks`ks
+    #[must_use]
     pub fn build(&self) -> AssociationType {
         AssociationType {
             id: match self {
@@ -229,9 +235,10 @@ impl AssociationLinks {
     }
 }
 
-/// Implementation of AssociationType
+/// Implementation of `AssociationType`
 impl AssociationType {
-    /// Constructs a new AssociationType
+    /// Constructs a new `AssociationType`
+    #[must_use]
     pub fn new(id: &str, category: &str) -> Self {
         Self {
             id: id.to_string(),

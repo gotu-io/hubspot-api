@@ -9,12 +9,12 @@ use reqwest::Method;
 
 use crate::client::error::HubspotResult;
 
-/// HubSpot uses owners to assign specific users to contacts, companies, deals, tickets,
-/// or engagements. Any HubSpot user with access to contacts can be assigned as an owner,
+/// `HubSpot` uses owners to assign specific users to contacts, companies, deals, tickets,
+/// or engagements. Any `HubSpot` user with access to contacts can be assigned as an owner,
 /// and multiple owners can be assigned to an object by creating a custom property for
-/// this purpose. Owners can only be created in HubSpot, but you can use the owners endpoints
+/// this purpose. Owners can only be created in `HubSpot`, but you can use the owners endpoints
 ///  to get their identifying details, including IDs and email addresses. This data can
-/// then be assigned to CRM records in HubSpot or via property change API calls.
+/// then be assigned to CRM records in `HubSpot` or via property change API calls.
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Owner {
@@ -36,7 +36,7 @@ pub struct Owner {
     pub updated_at: OffsetDateTime,
     /// Whether or not the owner has been archived
     pub archived: bool,
-    /// If teams are available for your HubSpot tier,
+    /// If teams are available for your `HubSpot` tier,
     /// this indicates which team(s) the owner can access.
     pub teams: Option<Vec<Team>>,
 }
@@ -53,7 +53,7 @@ pub struct Team {
 
 /// The endpoints described here are used to get a list of the owners
 /// that are available  for an account. To assign an owner to an object,
-/// set the hubspot_owner_id property using the appropriate CRM object
+/// set the `hubspot_owner_id` property using the appropriate CRM object
 /// update or create a request.
 #[derive(Clone, Debug)]
 pub struct OwnerApi {

@@ -36,7 +36,7 @@ pub struct AssociationTypes {
 /// A struct for creating new associations.
 #[derive(Serialize, Debug)]
 pub struct AssociationCreationDetails {
-    /// Whether the association type was created by HubSpot or a user (HUBSPOT_DEFINED and USER_DEFINED)
+    /// Whether the association type was created by `HubSpot` or a user (`HUBSPOT_DEFINED` an`USER_DEFINED`ED)
     #[serde(rename = "associationCategory")]
     pub category: String,
     /// The numeric ID for that association type.
@@ -81,7 +81,7 @@ impl<T> AssociationsApiCollection<T>
 where
     T: ToPath,
 {
-    /// Constructs a new AssociationsApiCollection for an object type.
+    /// Constructs a new `AssociationsApiCollection` for an object type.
     pub fn new(name: T, client: Arc<HubspotClient>) -> Self {
         Self(name, client)
     }

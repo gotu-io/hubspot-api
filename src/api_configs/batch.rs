@@ -15,8 +15,8 @@ struct BatchInputs<I> {
 }
 
 impl<I> BatchInputs<I> {
-    /// Constructs a new BatchInput
-    pub fn new(inputs: Vec<I>) -> BatchInputs<I> {
+    /// Constructs a new `BatchInput`
+    fn new(inputs: Vec<I>) -> BatchInputs<I> {
         BatchInputs { inputs }
     }
 }
@@ -32,19 +32,16 @@ struct BatchUpdateInput<Properties> {
 }
 
 impl<Properties: Clone> BatchUpdateInput<Properties> {
-    /// Constructs a new BatchUpdateInput
-    pub fn new(id: &str, properties: Properties) -> BatchUpdateInput<Properties> {
+    /// Constructs a new `BatchUpdateInput`
+    fn new(id: &str, properties: Properties) -> BatchUpdateInput<Properties> {
         BatchUpdateInput {
             id: id.to_string(),
             properties,
         }
     }
 
-    /// Constructs a new vec of BatchUpdateInputs from a list of record IDs.
-    pub fn new_batch(
-        ids: Vec<String>,
-        properties: Properties,
-    ) -> Vec<BatchUpdateInput<Properties>> {
+    /// Constructs a new vec of `BatchUpdateInputs` from a list of record IDs.
+    fn new_batch(ids: Vec<String>, properties: Properties) -> Vec<BatchUpdateInput<Properties>> {
         ids.iter()
             .map(|id| BatchUpdateInput::new(id, properties.clone()))
             .collect()
@@ -128,7 +125,7 @@ impl<T> BatchApiCollection<T>
 where
     T: ToPath,
 {
-    /// Constructs a new BatchApiCollection for a Hubspot Object
+    /// Constructs a new `BatchApiCollection` for a Hubspot Object
     pub fn new(name: T, client: Arc<HubspotClient>) -> Self {
         Self(name, client)
     }
@@ -145,7 +142,9 @@ where
                     .json::<BatchInputs<BatchIdInput>>(&BatchInputs::<BatchIdInput> {
                         inputs: ids
                             .iter()
-                            .map(|i| BatchIdInput { id: i.to_string() })
+                            .map(|i| BatchIdInput {
+                                id: (*i).to_string(),
+                            })
                             .collect(),
                     }),
             )

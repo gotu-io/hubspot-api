@@ -28,8 +28,8 @@ impl ToPath for ObjectType {
 
 /// Objects represent types of relationships or processes.
 ///
-/// All HubSpot accounts include four standard objects: contacts, companies, deals, and tickets.
-/// Depending on your HubSpot subscription, there are additional objects, such as products and custom objects.
+/// All `HubSpot` accounts include four standard objects: contacts, companies, deals, and tickets.
+/// Depending on your `HubSpot` subscription, there are additional objects, such as products and custom objects.
 ///
 /// Records are individual instances of an object (e.g., John Smith is a contact). For each record, you can store information in properties, track interactions, and create reports. You can also make associations between records to understand the relationships between them
 #[derive(Clone, Debug)]
@@ -60,7 +60,7 @@ impl ObjectsManager {
         }
     }
 
-    /// Uses the object_type to return the relevant collection.
+    /// Uses the `object_type` to return the relevant collection.
     pub fn get_collection(&self, object_type: ObjectType) -> &ApiCollection<ObjectType> {
         match object_type {
             ObjectType::Contacts => &self.contacts,
